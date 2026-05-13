@@ -1,0 +1,14 @@
+.home {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #fff5f5;
+
+  &__card {
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    text-align: center;
+  }
+}

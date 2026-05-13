@@ -1,0 +1,8 @@
+@use './abstracts/variables' as *;
+@use './abstracts/mixins' as *;
+@use './pages/home';
+
+body {
+  margin: 0;
+  font-family: sans-serif;
+}
