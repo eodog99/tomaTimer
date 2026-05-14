@@ -1,16 +1,18 @@
+'use client'  // 👈 이거 무조건 맨 위
+
 import { useEffect } from 'react'
 import { useTimerStore } from '@/store/useTimerStore'
 
-export const usePomodoro = () => {
+export function usePomodoro(active: boolean) {
   const { isRunning, tick } = useTimerStore()
 
   useEffect(() => {
-    if (!isRunning) return
+    if (!active || !isRunning) return
 
-    const timer = setInterval(() => {
+    const interval = setInterval(() => {
       tick()
     }, 1000)
 
-    return () => clearInterval(timer)
-  }, [isRunning, tick])
+    return () => clearInterval(interval)
+  }, [active, isRunning, tick])
 }

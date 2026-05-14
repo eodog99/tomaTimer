@@ -1,0 +1,80 @@
+.farm {
+  padding: 40px;
+  text-align: center;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(7, 40px);
+  gap: 8px;
+  justify-content: center;
+  overflow: visible;
+}
+
+.cell {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  z-index: 1;
+
+  &:hover {
+    z-index: 100;
+  }
+
+  &:hover .tooltip {
+    opacity: 1;
+  }
+}
+
+/* 🍅 레벨 */
+.level0 { background: #f5f5f5; }
+.level1 { background: #ffe5e5; }
+.level2 { background: #ffb3b3; }
+.level3 { background: #ff6666; }
+.level4 { background: #ff1a1a; }
+
+/* 툴팁 */
+.tooltip {
+  position: absolute;
+  top: 90%; // 아래로
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 999;
+
+  background: rgba(51, 51, 51, 0.95);
+  color: #fff;
+  padding: 6px 8px;
+  border-radius: 6px;
+  font-size: 12px;
+  white-space: nowrap;
+
+  opacity: 0;
+  transition: 0.2s;
+}
+
+/* 헤더 */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 20px;
+
+  button {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+  }
+
+  h2 {
+    font-size: 20px;
+    font-weight: 600;
+  }
+}

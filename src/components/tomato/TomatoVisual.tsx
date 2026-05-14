@@ -1,30 +1,47 @@
 'use client'
 
 import { useTimerStore } from '@/store/useTimerStore'
-import styles from './tomato.module.scss'
 
 export default function TomatoVisual() {
   const { timeLeft, totalTime } = useTimerStore()
-const progress = 1 - timeLeft / totalTime
 
-const hue = 120 - progress * 120 // 초록 → 빨강
-const scale = 1 + progress * 0.1
-const brightness = 0.9 + progress * 0.2
+  const progress = 1 - timeLeft / totalTime
+
+  // 🎯 0~1 → 0.3~0.8로 압축
+  const min = 0.5
+  const max = 0.7
+  const adjusted = min + (max - min) * progress
 
   return (
-    <div className={styles.tomato}>
-<img
+    <div style={{ position: 'relative', width: 160, margin: '0 auto' }}>
+    <img
   src="/images/tomato.png"
-  className={styles.tomato__image}
   style={{
+    width: '100%',
+    display: 'block',
+
+    // 🔥 핵심
     filter: `
-      hue-rotate(${hue}deg)
-      saturate(${1 + progress})
-      brightness(${brightness})
+      hue-rotate(${(1 - adjusted) * 120}deg)
+      saturate(${0.8 + adjusted * 0.4})
+      brightness(${0.9 + adjusted * 0.1})
     `,
-    transform: `scale(${scale})`,
   }}
 />
+
+      {/* 🎯 초록도 범위 줄이기 */}
+      <div
+        style={{
+          position: 'absolute',
+          inset: 0,
+          borderRadius: '50%',
+
+          // 👉 alpha도 adjusted 기준으로
+        background: 'red',
+          mixBlendMode: 'color',
+          transition: '0.3s',
+        }}
+      />
     </div>
   )
 }
