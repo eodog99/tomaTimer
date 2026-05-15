@@ -3,6 +3,8 @@
 인터랙티브한 토마토 성장 애니메이션과 함께 집중 시간을 기록하는 Pomodoro Timer 웹앱입니다.  
 집중 시간이 누적될수록 토마토가 익어가며, 하루 동안 수확한 토마토를 농장 형태로 확인할 수 있습니다.
 
+![토마토 농장](./public/images/img.png)
+
 ---
 
 ## Preview
@@ -65,12 +67,6 @@ tomatoCount = Math.floor(focusTime / 1500)
 - localStorage 기반 기록 저장
 
 
-# Installation
-
-```bash
-npm install
-npm run dev
-```
 
 ---
 
@@ -94,9 +90,3 @@ git push
 
 자동으로 재배포됩니다.
 
----
-
-# Author
-
-Frontend Developer Portfolio Project  
-Built with Next.js + TypeScript
