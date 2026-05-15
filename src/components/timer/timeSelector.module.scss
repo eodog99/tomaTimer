@@ -1,13 +1,14 @@
 .selector {
   display: flex;
   gap: 10px;
-  margin-bottom: 20px;
+  margin: 10px 0px 20px 0px;
 
   &__button {
-    padding: 8px 16px;
+    padding: 6px 12px;
     border-radius: 20px;
-    border: 1px solid #ff4d4f;
-    background: white;
+background: transparent;
+border: 1.5px solid #E3DADA;
+color: #666;
     cursor: pointer;
     transition: all 0.2s ease;
 
@@ -16,8 +17,9 @@
     }
 
     &--active {
-      background: #ff4d4f;
-      color: white;
+background: transparent;
+border: 1.5px solid #E3DADA;
+color: #666;
     }
 
     &:disabled {

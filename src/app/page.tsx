@@ -45,9 +45,9 @@ export default function Home() {
         <Controls />
         <TomatoFarm />
 
-        <button onClick={() => router.push('/farm')}>
+        {/* <button className='btn-farm' onClick={() => router.push('/farm')}>
           🍅 농장 보러가기
-        </button>
+        </button> */}
       </div>
     </main>
   )

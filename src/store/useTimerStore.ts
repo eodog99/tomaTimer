@@ -7,33 +7,42 @@ interface TimerState {
   totalTime: number
   selectedTime: number
 
+  focusTime: number
   tomatoCount: number
-  sessions: number
-hasStarted: boolean
+
+  hasStarted: boolean
+
   start: () => void
   pause: () => void
   reset: () => void
   tick: () => void
   setTime: (time: number) => void
-  completeSession: () => void
   initToday: () => void
 }
 
 export const useTimerStore = create<TimerState>((set, get) => ({
   isRunning: false,
-  timeLeft: 15,
-  totalTime: 15,
-  selectedTime: 15,
+
+  // 시작 시간 25분
+  timeLeft: 1500,
+  totalTime: 1500,
+  selectedTime: 1500,
+
+  focusTime: 0,
+  tomatoCount: 0,
+
   hasStarted: true,
 
-  tomatoCount: 0,
-  sessions: 0,
-start: () =>
-  set({
-    isRunning: true,
-    hasStarted: true,
-  }),
-  pause: () => set({ isRunning: false }),
+  start: () =>
+    set({
+      isRunning: true,
+      hasStarted: true,
+    }),
+
+  pause: () =>
+    set({
+      isRunning: false,
+    }),
 
   reset: () =>
     set((state) => ({
@@ -41,22 +50,40 @@ start: () =>
       timeLeft: state.totalTime,
     })),
 
-tick: () =>
-  set((state) => {
-    if (state.timeLeft <= 1) {
-      if (state.hasStarted) {
-        get().completeSession()
+  tick: () =>
+    set((state) => {
+      if (state.timeLeft <= 0) {
+        return {
+          isRunning: false,
+        }
       }
+
+      const newFocusTime = (state.focusTime || 0) + 1
+
+      // 🍅 25분마다 1개
+      const newTomatoCount = Math.floor(newFocusTime / 1500)
+
+      // 📅 오늘 날짜
+      const today = getToday()
+
+      // 기존 기록 불러오기
+      const history = loadHistory()
+
+      // 오늘 기록 저장
+      history[today] = {
+        focusTime: newFocusTime,
+        tomatoCount: newTomatoCount,
+      }
+
+      saveHistory(history)
 
       return {
-        timeLeft: 0,
-        isRunning: false,
-        hasStarted: false,
+        timeLeft: state.timeLeft - 1,
+        focusTime: newFocusTime,
+        tomatoCount: newTomatoCount,
       }
-    }
+    }),
 
-    return { timeLeft: state.timeLeft - 1 }
-  }),
   setTime: (time) =>
     set({
       selectedTime: time,
@@ -65,35 +92,19 @@ tick: () =>
       isRunning: false,
     }),
 
-  completeSession: () => {
-    const today = getToday()
-    const history = loadHistory()
-
-    const current = history[today] || { tomatoCount: 0, sessions: 0 }
-
-    const updated = {
-      tomatoCount: current.tomatoCount + 1,
-      sessions: current.sessions + 1,
-    }
-
-    history[today] = updated
-    saveHistory(history)
-
-    set({
-      tomatoCount: updated.tomatoCount,
-      sessions: updated.sessions,
-    })
-  },
-
   initToday: () => {
     const today = getToday()
+
     const history = loadHistory()
 
-    const current = history[today] || { tomatoCount: 0, sessions: 0 }
+    const current = history[today] || {
+      focusTime: 0,
+      tomatoCount: 0,
+    }
 
     set({
-      tomatoCount: current.tomatoCount,
-      sessions: current.sessions,
+      focusTime: current.focusTime || 0,
+      tomatoCount: current.tomatoCount || 0,
     })
   },
 }))

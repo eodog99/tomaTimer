@@ -9,7 +9,7 @@ export default function TimerDisplay() {
   const seconds = timeLeft % 60
 
   return (
-    <div style={{ fontSize: '48px', fontWeight: 'bold' }}>
+    <div style={{ fontSize: '48px', fontWeight: 'bold', margin: '10px 0px'}}>
       {String(minutes).padStart(2, '0')}:
       {String(seconds).padStart(2, '0')}
     </div>

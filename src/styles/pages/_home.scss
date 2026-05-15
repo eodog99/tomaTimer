@@ -7,8 +7,17 @@
 
   &__card {
     background: white;
-    padding: 40px;
+    padding: 50px 40px 20px 40px;
     border-radius: 20px;
     text-align: center;
   }
+}
+
+.btn-farm {
+color: #888;
+border: 1px solid #ccc;
+background: transparent;
+   &:hover {
+  color: #FF6B6B;
+      }
 }
